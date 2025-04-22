@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Latitude33</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      background-color: #d6e3f1;
+      border-radius: 8px;
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      font-size: 3em;
+      color: #3b4d61;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    nav ul li {
+      display: inline;
+      margin: 0 15px;
+    }
+
+    nav ul li a {
+      color: #3b4d61;
+      text-decoration: none;
+      font-size: 1.2em;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #a8c0d6;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+    }
+
+    section {
+      margin-bottom: 40px;
+    }
+
+    section h2 {
+      font-size: 2em;
+      margin-bottom: 15px;
+      color: #5f6f7a;
+    }
+
+    iframe {
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    #map-container {
+      margin-top: 20px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 1em;
+      padding: 20px;
+      margin-top: 40px;
+      background-color: #d6e3f1;
+      color: #3b4d61;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Latitude33</h1>
+    <nav>
+      <ul>
+        <li><a href="#vlog1">I</a></li>
+        <li><a href="#vlog3">III</a></li>
+        <li><a href="#map">Carte Interactive</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="vlog1">
+      <h2>Semaine I – Les Nouveaux Rivages, 海</h2>
+      <iframe src="vlog_video_url" width="600" height="400"></iframe>
+    </section>
+
+    <section id="vlog3">
+      <h2>Semaine III</h2>
+      <iframe src="vlog_video_url_3" width="600" height="400"></iframe>
+    </section>
+
+    <section id="map">
+      <div id="map-container">
+        <iframe src="https://aobibop.github.io/latitude33/" width="100%" height="500"></iframe>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Latitude33 - Semestre d'échange à Fukuoka</p>
+  </footer>
+</body>
+</html>
