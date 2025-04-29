@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Latitude33</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -13,49 +13,52 @@
     }
 
     body {
-      font-family: 'Arial', sans-serif;
+      font-family: 'Inter', sans-serif;
+      font-weight: 200;
       background-color: #f9f9f9;
       color: #333;
       line-height: 1.6;
       padding: 20px;
     }
 
-    header {
-      text-align: center;
-      padding: 20px;
+    .title-container {
       background-color: #d6e3f1;
+      padding: 30px 20px;
       border-radius: 8px;
-      margin-bottom: 40px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      max-width: 900px;
+      margin: 0 auto 20px auto;
+      text-align: center;
     }
 
-    header h1 {
+    .title-container h1 {
       font-size: 3em;
       color: #3b4d61;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
       letter-spacing: 1px;
     }
 
-    nav ul {
+    .title-container nav ul {
       list-style: none;
       padding: 0;
     }
 
-    nav ul li {
+    .title-container nav ul li {
       display: inline;
       margin: 0 15px;
     }
 
-    nav ul li a {
-      color: #3b4d61;
+    .title-container nav ul li a {
+      color: #ffffff;
       text-decoration: none;
-      font-size: 1.2em;
+      font-size: 1.1em;
       text-transform: uppercase;
       letter-spacing: 1px;
-      transition: color 0.3s ease;
+      transition: opacity 0.3s ease;
     }
 
-    nav ul li a:hover {
-      color: #a8c0d6;
+    .title-container nav ul li a:hover {
+      opacity: 0.7;
     }
 
     main {
@@ -72,13 +75,15 @@
     }
 
     section h2 {
-      font-size: 2em;
+      font-size: 1.3em;
       margin-bottom: 15px;
       color: #5f6f7a;
+      font-weight: 200;
     }
 
     iframe {
       width: 100%;
+      height: 400px;
       border: none;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -89,6 +94,31 @@
       border-radius: 8px;
       overflow: hidden;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .accordion-toggle {
+      background-color: #d6e3f1;
+      color: #3b4d61;
+      border: none;
+      padding: 12px 20px;
+      font-size: 1em;
+      cursor: pointer;
+      border-radius: 6px;
+      margin-top: 20px;
+      transition: background-color 0.3s ease;
+    }
+
+    .accordion-toggle:hover {
+      background-color: #c0d4e7;
+    }
+
+    .accordion-content {
+      display: none;
+      margin-top: 15px;
+      padding: 15px;
+      background-color: #f1f5f9;
+      border-left: 4px solid #3b4d61;
+      border-radius: 6px;
     }
 
     footer {
@@ -104,25 +134,45 @@
 </head>
 <body>
   <header>
-    <h1>Latitude33</h1>
-    <nav>
-      <ul>
-        <li><a href="#vlog1">I</a></li>
-        <li><a href="#vlog3">III</a></li>
-        <li><a href="#map">Carte Interactive</a></li>
-      </ul>
-    </nav>
+    <div class="title-container">
+      <h1>Latitude33</h1>
+      <nav>
+        <ul>
+          <li><a href="#pre-journal">pré-journal</a></li>
+          <li><a href="#vlog1">I</a></li>
+          <li><a href="#vlog3">III</a></li>
+          <li><a href="#map">Carte Interactive</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
   <main>
+    <section id="pre-journal">
+      <h2>Pré-journal au Manx – fin mars</h2>
+      <iframe src="https://www.youtube.com/embed/Eg1ocv19rFU" title="Pré-journal au Manx" allowfullscreen></iframe>
+      <p>je n'aime pas m'entendre chanter tout comme je n'aime pas m'entendre parler une autre langue, je déménage à Fukuoka demain. de toute manière je sais aussi bien parler Japonais que filmer/monter des vidéos, mon but d'aujourd'hui n'étant pas de bien savoir le faire, mais d'essayer de me faire comprendre un minimum</p>
+    </section>
+
     <section id="vlog1">
       <h2>Semaine I – Les Nouveaux Rivages, 海</h2>
-      <iframe src="vlog_video_url" width="600" height="400"></iframe>
+      <iframe src="vlog_video_url" title="Semaine I" allowfullscreen></iframe>
+
+      <div class="accordion">
+        <button class="accordion-toggle">⇨Références du moment⇦</button>
+        <div class="accordion-content">
+          <p></p>
+          <iframe width="100%" height="315" src="https://www.youtube.com/embed/_6cI7AB2YYU" title="Japanese rice field ambient sounds" allowfullscreen></iframe>
+
+          <p></p>
+          <iframe width="100%" height="315" src="https://www.youtube.com/embed/S0LCtQlh5CM" title="青い地球 Blue Earth" allowfullscreen></iframe>
+        </div>
+      </div>
     </section>
 
     <section id="vlog3">
       <h2>Semaine III</h2>
-      <iframe src="vlog_video_url_3" width="600" height="400"></iframe>
+      <iframe src="vlog_video_url_3" title="Semaine III" allowfullscreen></iframe>
     </section>
 
     <section id="map">
@@ -135,5 +185,14 @@
   <footer>
     <p>© 2025 Latitude33 - Semestre d'échange à Fukuoka</p>
   </footer>
+
+  <script>
+    const toggle = document.querySelector('.accordion-toggle');
+    const content = document.querySelector('.accordion-content');
+
+    toggle.addEventListener('click', () => {
+      content.style.display = content.style.display === 'block' ? 'none' : 'block';
+    });
+  </script>
 </body>
 </html>
