@@ -1,198 +1,227 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Latitude33</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carte sensible de Fukuoka</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      font-family: 'Inter', sans-serif;
-      font-weight: 200;
-      background-color: #f9f9f9;
-      color: #333;
-      line-height: 1.6;
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #fffaf8;
+    }
+    header {
+      background: #f8e9e9;
       padding: 20px;
-    }
-
-    .title-container {
-      background-color: #d6e3f1;
-      padding: 30px 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      max-width: 900px;
-      margin: 0 auto 20px auto;
       text-align: center;
+      font-size: 1.5rem;
+      color: #444;
     }
-
-    .title-container h1 {
-      font-size: 3em;
-      color: #3b4d61;
-      margin-bottom: 15px;
-      letter-spacing: 1px;
-    }
-
-    .title-container nav ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .title-container nav ul li {
-      display: inline;
-      margin: 0 15px;
-    }
-
-    .title-container nav ul li a {
-      color: #ffffff;
-      text-decoration: none;
-      font-size: 1.1em;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: opacity 0.3s ease;
-    }
-
-    .title-container nav ul li a:hover {
-      opacity: 0.7;
-    }
-
-    main {
-      max-width: 900px;
-      margin: 0 auto;
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      padding: 40px;
-    }
-
-    section {
-      margin-bottom: 40px;
-    }
-
-    section h2 {
-      font-size: 1.3em;
-      margin-bottom: 15px;
-      color: #5f6f7a;
-      font-weight: 200;
-    }
-
-    iframe {
+    #map {
+      height: 90vh;
       width: 100%;
-      height: 400px;
-      border: none;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
-
-    #map-container {
-      margin-top: 20px;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    .popup-img {
+      width: 100%;
+      height: auto;
+      max-height: 200px;
+      object-fit: cover;
+      margin-top: 5px;
+      border-radius: 10px;
     }
-
-    .accordion-toggle {
-      background-color: #d6e3f1;
-      color: #3b4d61;
+    .popup-text {
+      margin-top: 8px;
+      font-style: italic;
+    }
+    #reset-view {
+      position: absolute;
+      top: 90px;
+      right: 20px;
+      z-index: 1000;
+      background: #f8e9e9;
       border: none;
-      padding: 12px 20px;
-      font-size: 1em;
+      padding: 16px;
+      border-radius: 50%;
+      font-size: 25px;
+      font-weight: bold;
+      color: #555;
       cursor: pointer;
-      border-radius: 6px;
-      margin-top: 20px;
-      transition: background-color 0.3s ease;
-    }
-
-    .accordion-toggle:hover {
-      background-color: #c0d4e7;
-    }
-
-    .accordion-content {
-      display: none;
-      margin-top: 15px;
-      padding: 15px;
-      background-color: #f1f5f9;
-      border-left: 4px solid #3b4d61;
-      border-radius: 6px;
-    }
-
-    footer {
-      text-align: center;
-      font-size: 1em;
-      padding: 20px;
-      margin-top: 40px;
-      background-color: #d6e3f1;
-      color: #3b4d61;
-      border-radius: 8px;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
     }
   </style>
 </head>
 <body>
+
   <header>
-    <div class="title-container">
-      <h1>Latitude33</h1>
-      <nav>
-        <ul>
-          <li><a href="#pre-journal">pré-journal</a></li>
-          <li><a href="#vlog1">I</a></li>
-          <li><a href="#vlog3">III</a></li>
-          <li><a href="#map">Carte Interactive</a></li>
-        </ul>
-      </nav>
-    </div>
+    cartographie - préfecture de Fukuoka
   </header>
 
-  <main>
-    <section id="pre-journal">
-      <h2>Pré-journal au Manx – fin mars</h2>
-      <iframe src="https://www.youtube.com/embed/Eg1ocv19rFU" title="Pré-journal au Manx" allowfullscreen></iframe>
-      <p>je n'aime pas m'entendre chanter tout comme je n'aime pas m'entendre parler une autre langue, je déménage à Fukuoka demain. de toute manière je sais aussi bien parler Japonais que filmer/monter des vidéos, mon but d'aujourd'hui n'étant pas de bien savoir le faire, mais d'essayer de me faire comprendre un minimum</p>
-    </section>
+  <div id="map"></div>
 
-    <section id="vlog1">
-      <h2>Semaine I – Les Nouveaux Rivages, 海</h2>
-      <iframe src="vlog_video_url" title="Semaine I" allowfullscreen></iframe>
+  <button id="reset-view">🧭</button>
 
-      <div class="accordion">
-        <button class="accordion-toggle">⇨Références du moment⇦</button>
-        <div class="accordion-content">
-          <p></p>
-          <iframe width="100%" height="315" src="https://www.youtube.com/embed/_6cI7AB2YYU" title="Japanese rice field ambient sounds" allowfullscreen></iframe>
-
-          <p></p>
-          <iframe width="100%" height="315" src="https://www.youtube.com/embed/S0LCtQlh5CM" title="青い地球 Blue Earth" allowfullscreen></iframe>
-        </div>
-      </div>
-    </section>
-
-    <section id="vlog3">
-      <h2>Semaine III</h2>
-      <iframe src="vlog_video_url_3" title="Semaine III" allowfullscreen></iframe>
-    </section>
-
-    <section id="map">
-      <div id="map-container">
-        <iframe src="https://aobibop.github.io/latitude33/" width="100%" height="500"></iframe>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>© 2025 Latitude33 - Semestre d'échange à Fukuoka</p>
-  </footer>
-
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-    const toggle = document.querySelector('.accordion-toggle');
-    const content = document.querySelector('.accordion-content');
+    const map = L.map('map').setView([33.602, 130.4017], 12);
 
-    toggle.addEventListener('click', () => {
-      content.style.display = content.style.display === 'block' ? 'none' : 'block';
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Markers
+
+    L.marker([33.672065, 130.443870]).addTo(map).bindPopup(`
+      <div>
+        <strong>08/04 ワークショップ</strong><br>
+        <p class="popup-text">
+          Depuis la fenêtre je vois les montagnes, elles sont d’autant plus belles lors de jours nuageux, la brume semble s’endormir dans le creux des vallées. 
+          Defne travaille beaucoup depuis que nous sommes arrivés, j'aime bien la voir comme ça.
+        </p>
+        <img src="IMG_6205.jpg" class="popup-img" alt="vue fenêtre atelier">
+      </div>
+    `);
+
+    L.marker([33.669911, 130.446145]).addTo(map).bindPopup(`
+      <div>
+        <strong>07/04</strong><br>
+        <p class="popup-text">
+          je suis censé y croire ? c'est la rentrée, les clubs essaient de recruter et les fleurs de cerisiers commencent à tomber
+        </p>
+        <img src="IMG_6182.jpg" class="popup-img" alt="cerisiers Fukuoka">
+      </div>
+    `);
+
+    L.marker([33.672465, 130.444250]).addTo(map).bindPopup(`
+      <div>
+        <strong>10/04 木工アトリエ</strong><br>
+        <p class="popup-text">
+          c’est immense, on apprend à sculpter dans du camphrier, je flippe à chaque coup de marteau
+        </p>
+        <img src="IMG_6435.jpg" class="popup-img" alt="atelier bois">
+      </div>
+    `);
+
+    L.marker([33.808353, 130.569512]).addTo(map).bindPopup(`
+      <div>
+        <strong>Akama plus jamais</strong><br>
+        <p class="popup-text">
+          c'est notre premier jour à l'université, on est monté dans un train express au lieu d'un local et sommes arrivé.es à l'autre bout de la map. arrivé.e à notre premier cours de cinéma = 30 min de retard...
+        </p>
+        <img src="https://i.postimg.cc/DwpfxMVq/f928ac51-2df7-4413-8c40-818d8a8e4374.jpg" class="popup-img" alt="photo Akama">
+      </div>
+    `);
+
+    L.marker([33.67183847740786, 130.444067366866]).addTo(map).bindPopup(`
+      <div>
+        <strong>21/04</strong><br>
+        <p class="popup-text">
+          しょだい くにもと の じゅぎょう せんせい, (premier cours de professeur Kunimoto), encore une fois tout le monde bosse sur le sol, c'est hyper agréable 
+        </p>
+        <img src="https://i.postimg.cc/MKPbn3s3/4-AB3-A04-B-A987-4-F22-83-BE-F244604-DEAE8.jpg" class="popup-img" alt="しょだい くにもと の じゅぎょう">
+      </div>
+    `);
+
+    L.marker([33.760075655486474, 130.36539045862014]).addTo(map).bindPopup(`
+      <div>
+        <strong>26/04</strong><br>
+        <p class="popup-text">
+          ねこ の しま (l'île aux chats), ねこ ちゃん ne veut pas être interviewé sans gourmandise à la clef
+        </p>
+        <img src="https://i.postimg.cc/P5CcJwMZ/E92-EAEE2-EF01-4509-9-F9-E-B5-C413532-CB8.jpg" class="popup-img" alt="île aux chats">
+      </div>
+    `);
+
+    L.marker([33.67224017050592, 130.44348199366047]).addTo(map).bindPopup(`
+      <div>
+        <strong>23/04</strong><br>
+        <p class="popup-text">
+          J'apprends à tourner depuis maintenant deux semaines, c'est génial, on a la chance énorme d'être très bien accompagné.es. Souvent ce cours est très silencieux. J'observe Defne, elle apprécie le tournage, ça se voit, différemment de la peinture
+        </p>
+        <img src="https://i.postimg.cc/XJY9Nwf6/F4-A69270-85-A7-4986-95-E3-B1-EB0-C67-FA1-B.jpg" class="popup-img" alt="atelier tournage">
+      </div>
+    `);
+
+    L.marker([33.67214767157967, 130.44360661276383]).addTo(map).bindPopup(`
+      <div>
+        <strong>20/04</strong><br>
+        <p class="popup-text">
+          Ils ont beaucoup de livres remplis de travaux d'étudiant.es, des diplômé.es ?
+        </p>
+        <img src="https://i.postimg.cc/VNfF5Sn1/IMG-6604.jpg" class="popup-img" alt="livres étudiants">
+      </div>
+    `);
+
+    L.marker([33.67240274413517, 130.44435769546777]).addTo(map).bindPopup(`
+      <div>
+        <strong>17/04</strong><br>
+        <p class="popup-text">
+          encore l'atelier bois parce que j'en suis fan fan fan
+        </p>
+        <img src="https://i.postimg.cc/5trF1jms/IMG-6807.jpg" class="popup-img" alt="atelier bois 17/04">
+      </div>
+    `);
+
+    L.marker([33.66757778870828, 130.4430764543885]).addTo(map).bindPopup(`
+      <div>
+        <strong>28/04</strong><br>
+        <p class="popup-text">
+          ___________________________
+        </p>
+        <img src="https://i.postimg.cc/43Hx6Pz1/IMG-6837.jpg" class="popup-img" alt="photo 28 avril">
+      </div>
+    `);
+
+    L.marker([33.615504410715744, 130.42093995361668]).addTo(map).bindPopup(`
+      <div>
+        <strong>20/04</strong><br>
+        <p class="popup-text">
+          On a trouvé les puces de Fukuoka!
+        </p>
+        <img src="https://i.postimg.cc/Gpv135F6/IMG-6804.jpg" class="popup-img" alt="puces de Fukuoka">
+      </div>
+    `);
+
+    L.marker([33.66345936477912, 130.44463002952585]).addTo(map).bindPopup(`
+      <div>
+        <strong>25/04</strong><br>
+        <p class="popup-text">
+          __________________________
+        </p>
+        <img src="https://i.postimg.cc/2ysw52FX/IMG-6680.jpg" class="popup-img" alt="photo 25 avril">
+      </div>
+    `);
+
+    L.marker([33.58411830142849, 130.37970581780695]).addTo(map).bindPopup(`
+      <div>
+        <strong>19/04 — musée d'Art de Fukuoka</strong><br>
+        <p class="popup-text">
+          traduction approximative du cartel récupéré sur place :<br>
+          <em>"SECOND PLANET, "A Place Without a Catastrophe" - 2024</em>, collectif d'artistes Hisao Tonoda et Keiichi Miyagawa.
+          Portrait de Kokura le 9 août 1945 abordant l'événement historique "qui n'a pas eu lieu".
+        </p>
+        <img src="https://i.postimg.cc/zBL2XbYv/IMG-6499.jpg" class="popup-img" alt="Musée d'Art Fukuoka">
+      </div>
+    `);
+
+    L.marker([33.5945193202228, 130.40749353989557]).addTo(map).bindPopup(`
+      <div>
+        <strong>19/04</strong><br>
+        <p class="popup-text">
+          ____________________________________
+        </p>
+        <img src="https://i.postimg.cc/zXMBV4hf/IMG-6491.jpg" class="popup-img" alt="photo 19 avril">
+      </div>
+    `);
+
+    document.getElementById('reset-view').addEventListener('click', function() {
+      map.flyTo([33.602, 130.4017], 12, {
+        animate: true,
+        duration: 1.5
+      });
     });
   </script>
+
 </body>
 </html>
